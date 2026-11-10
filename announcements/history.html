@@ -12,6 +12,8 @@ a{color:var(--green)}
 .top{background:var(--hero);color:var(--hero-fg);padding:44px 20px 40px}
 .top .in{max-width:760px;margin:0 auto}
 .top a{color:var(--accent);font-size:14px;text-decoration:none}
+.top .home{display:inline-block;padding:9px 16px;border:1px solid var(--accent);font-weight:600;font-size:15px;margin-right:14px}
+.top .home:hover{background:var(--accent);color:#06150c}
 .top h1{margin:14px 0 10px;font-size:clamp(30px,5vw,44px);letter-spacing:-.02em;line-height:1.1}
 .top p{margin:0;color:var(--hero-muted);max-width:34em}
 main{max-width:760px;margin:0 auto;padding:36px 20px 40px}
@@ -36,12 +38,13 @@ main{max-width:760px;margin:0 auto;padding:36px 20px 40px}
 .watch{display:inline-block;margin-top:2px;font-size:15px;font-weight:600}
 .end{margin-top:12px;padding:22px;background:var(--card);border:1px solid var(--line)}
 .end p{margin:0;color:var(--muted)}
+.btn-home{display:inline-block;padding:12px 20px;background:var(--green);color:#fff;font-weight:600;text-decoration:none}
 footer{max-width:760px;margin:0 auto;padding:0 20px 48px;color:var(--muted);font-size:14px}
 </style>
 </head><body>
 
 <header class="top"><div class="in">
-  <a href="../index.html">&larr; All announcements</a>
+  <a class="home" href="../videos/index.html">&larr; Back to home</a><a href="../index.html">All announcements</a>
   <h1>Release history</h1>
   <p>What's been added to Mulligan Pro, from the first test builds to today. Newest at the top.</p>
 </div></header>
@@ -220,6 +223,8 @@ footer{max-width:760px;margin:0 auto;padding:0 20px 48px;color:var(--muted);font
   </li>
 
 </ol>
+
+<p style="margin:0 0 22px"><a class="btn-home" href="../videos/index.html">&larr; Back to home</a></p>
 
 <div class="end">
   <p>Something you want on this list? <a href="../videos/index.html#contact">Tell me about it</a>.</p>
