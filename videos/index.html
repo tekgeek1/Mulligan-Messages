@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mulligan Pro — Free Golf GPS</title>
+<meta name="description" content="Free golf GPS with distances, club tracking and scoring. See how it works.">
+<style>
+:root{--bg:#f5f6f4;--fg:#15191600;--fg:#161a17;--muted:#5f675f;--card:#fff;--line:#d8dcd7;--green:#17703a;--hero:#0c2216;--hero-fg:#f2f6f2;--hero-muted:#a9bcae;--accent:#7be0a0}
+@media (prefers-color-scheme:dark){:root{--bg:#0b100d;--fg:#eef2ee;--muted:#98a198;--card:#131a15;--line:#26302a;--green:#4fcf7d;--hero:#07130c}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--fg);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,sans-serif}
+a{color:var(--green)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* top bar */
+.bar{background:var(--hero);color:var(--hero-fg)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:700;letter-spacing:.02em;font-size:18px}
+.brand span{color:var(--accent)}
+.bar nav a{color:var(--hero-muted);text-decoration:none;font-size:15px;margin-left:22px}
+.bar nav a:hover{color:var(--hero-fg)}
+
+/* hero */
+.hero{background:var(--hero);color:var(--hero-fg);padding:36px 0 72px;border-top:1px solid rgba(255,255,255,.06)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 14px}
+h1{font-size:clamp(34px,5.4vw,54px);line-height:1.06;margin:0 0 18px;letter-spacing:-.02em}
+.lede{font-size:19px;color:var(--hero-muted);margin:0 0 28px;max-width:30em}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:14px 22px;font-weight:600;text-decoration:none;font-size:16px;border:1px solid var(--accent)}
+.btn.primary{background:var(--accent);color:#06150c}
+.btn.ghost{color:var(--accent)}
+.btn:hover{filter:brightness(1.1)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin:28px 0 0;padding:0;list-style:none;color:var(--hero-muted);font-size:15px}
+.facts li::before{content:"";display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:8px;vertical-align:middle}
+
+/* phone video frame (square corners, thin bezel) */
+.phone{background:#000;border:1px solid rgba(255,255,255,.18);padding:8px;width:100%;max-width:290px;margin:0 auto;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.phone .screen{position:relative;aspect-ratio:540/1174;background:#000}
+.phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero .phone{max-width:300px}
+
+/* sections */
+section{padding:56px 0 8px}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:28px}
+h2{font-size:26px;margin:0;letter-spacing:-.01em}
+.head p{margin:0;color:var(--muted);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px}
+.tile{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.tile .phone{border:0;box-shadow:none;max-width:none;padding:0;background:#000}
+.tile .phone .screen{aspect-ratio:540/1174;max-height:520px;margin:0 auto}
+.tile .media{background:#000;padding:16px 0;display:flex;justify-content:center}
+.tile .media .screen{position:relative;height:480px;aspect-ratio:540/1174;background:#000;border:1px solid #333}
+.tile .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.txt{padding:18px 18px 22px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin:0 0 6px}
+.tag.soon{color:#b86e00}
+@media (prefers-color-scheme:dark){.tag.soon{color:#ffb84d}}
+h3{font-size:20px;margin:0 0 8px;line-height:1.25}
+.txt p{margin:0 0 10px;color:var(--muted);font-size:16px}
+.txt ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px}
+.txt li{margin:2px 0}
+
+/* wide feature tile */
+.wide{grid-column:1/-1;flex-direction:row}
+.wide .media{flex:0 0 320px;padding:20px}
+.wide .txt{padding:28px;align-self:center}
+.wide h3{font-size:24px}
+
+
+/* contact */
+#contact{padding-bottom:0}
+.talk{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:28px}
+.talk .box{background:var(--card);border:1px solid var(--line);padding:26px}
+.talk h3{font-size:21px}
+.talk p{color:var(--muted);margin:0 0 12px}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:0 0 14px 38px;color:var(--muted);font-size:16px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;background:var(--green);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.steps strong{color:var(--fg)}
+.mail{display:inline-block;margin:6px 0 14px;font-size:18px;font-weight:600;word-break:break-all}
+.quick{margin:0;padding-left:18px;color:var(--muted);font-size:15px}
+@media (max-width:760px){.talk{grid-template-columns:minmax(0,1fr)}}
+
+/* closing */
+.close{margin:72px 0 0;background:var(--hero);color:var(--hero-fg);padding:52px 0;text-align:center}
+.close h2{font-size:30px;margin:0 0 10px}
+.close p{color:var(--hero-muted);margin:0 0 24px}
+footer{padding:28px 0 40px;color:var(--muted);font-size:14px;text-align:center}
+
+@media (max-width:760px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:36px}
+  .bar nav a{margin-left:0}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .hero{padding-bottom:48px}
+  .bar nav a:not(:last-child){display:none}
+  .wide{flex-direction:column}
+  .wide .media{flex:none}
+  .head{flex-direction:column;gap:2px}
+}
+</style>
+</head><body>
+
+<div class="bar"><div class="wrap">
+  <div class="brand">Mulligan <span>Pro</span></div>
+  <nav><a href="#start">Getting started</a><a href="#course">On the course</a><a href="#new">What's new</a><a href="#contact">Contact</a><a href="../announcements/history.html">Release history</a></nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <p class="eyebrow">Free golf GPS</p>
+    <h1>The yardages you need. No paywall.</h1>
+    <p class="lede">Distances to every green, hazard and layup. Club tracking that learns how far you hit. Scoring when you want it, out of the way when you don't.</p>
+    <div class="cta">
+      <!-- TODO: replace # with the App Store link -->
+      <a class="btn primary" href="#">Download on the App Store</a>
+      <a class="btn ghost" href="#start">Watch how it works</a>
+    </div>
+    <ul class="facts"><li>Free to use</li><li>Built by golfers</li><li>Courses added every week</li></ul>
+  </div>
+  <div class="phone"><div class="screen">
+    <video controls playsinline muted preload="metadata" poster="scoring-options.jpg"><source src="scoring-options.mp4" type="video/mp4"></video>
+  </div></div>
+</div></header>
+
+<main class="wrap">
+
+<section id="start">
+  <div class="head"><h2>Getting started</h2><p>Two minutes to set up</p></div>
+  <div class="grid">
+    <article class="tile wide">
+      <div class="media"><div class="screen"><video controls playsinline preload="metadata" poster="add-clubs.jpg"><source src="add-clubs.mp4" type="video/mp4"></video></div></div>
+      <div class="txt">
+        <p class="tag">Step 1</p>
+        <h3>Build your bag</h3>
+        <p>Tell Mulligan which clubs you carry. It uses them for club suggestions and tracks how far you hit each one.</p>
+        <ul>
+          <li>Profile → Manage Golf Bag</li>
+          <li>Tap the circle next to a club to add it or take it out</li>
+          <li>Tap a club to set its brand and model</li>
+          <li>Carry two of the same type? Use Add Club</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="course">
+  <div class="head"><h2>On the course</h2><p>Play it your way</p></div>
+  <div class="grid">
+    <article class="tile wide">
+      <div class="media"><div class="screen"><video controls playsinline preload="metadata" poster="scoring-options.jpg"><source src="scoring-options.mp4" type="video/mp4"></video></div></div>
+      <div class="txt">
+        <p class="tag">Four modes</p>
+        <h3>Pick how much you want the app to do</h3>
+        <p>Switch any time during a round from the button at the bottom of the screen. Your score stays.</p>
+        <ul>
+          <li><strong>GPS + Tracking</strong>: clubs, shots and automatic scoring</li>
+          <li><strong>GPS + Scorecard</strong>: distances, you keep score</li>
+          <li><strong>Rangefinder</strong>: just distances, no score</li>
+          <li><strong>Scorecard</strong>: no GPS, just score</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="new">
+  <div class="head"><h2>What's new</h2><p>Rolling out soon</p></div>
+  <div class="grid">
+
+    <article class="tile">
+      <div class="media"><div class="screen"><video controls playsinline preload="metadata" poster="custom-club-distance.jpg"><source src="custom-club-distance.mp4" type="video/mp4"></video></div></div>
+      <div class="txt">
+        <p class="tag soon">Coming soon</p>
+        <h3>Use your own club distances</h3>
+        <p>Already know how far you hit each club? Type it in. It stays separate from the average Mulligan calculates, so one never overwrites the other.</p>
+        <ul>
+          <li>Manage Golf Bag → tap a club</li>
+          <li>Turn on "Use my own distance"</li>
+          <li>Turn it off to go back to automatic</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="tile">
+      <div class="media"><div class="screen"><video controls playsinline preload="metadata" poster="distance-pin.jpg"><source src="distance-pin.mp4" type="video/mp4"></video></div></div>
+      <div class="txt">
+        <p class="tag soon">Coming soon</p>
+        <h3>Distance pin goes where you tap</h3>
+        <p>Measure to a bunker, hazard or the edge of a green. The pin lands exactly under your finger, and you can drag it to fine-tune.</p>
+      </div>
+    </article>
+
+    <article class="tile">
+      <div class="media"><div class="screen"><video controls playsinline preload="metadata" poster="review-shots.jpg"><source src="review-shots.mp4" type="video/mp4"></video></div></div>
+      <div class="txt">
+        <p class="tag soon">Coming soon</p>
+        <h3>Review Shots</h3>
+        <p>After a hole, check the shots Mulligan tracked. Change a wrong club, move a shot, or add one it missed.</p>
+        <ul>
+          <li>An orange warning marks a shot that looks off</li>
+          <li>Optional. Tap Next Hole to skip it</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="head"><h2>Talk to me</h2><p>A real person reads this</p></div>
+  <div class="talk">
+    <div class="box">
+      <h3>How I handle requests</h3>
+      <p>Mulligan Pro is built by one golfer. Your emails go straight to me, and they decide what gets built next.</p>
+      <ol class="steps">
+        <li><strong>You send it.</strong> A feature idea, a course that's missing, or something that looks wrong on the map.</li>
+        <li><strong>I read it and try to reproduce it.</strong> For courses, I check the scorecard and the green locations against real sources.</li>
+        <li><strong>It goes on the list.</strong> Things that come up more than once move to the top.</li>
+        <li><strong>You hear back.</strong> When it ships, it's in the release notes, and I'll reply to you if you wrote in.</li>
+      </ol>
+      <p style="margin-bottom:0">The scorecard preview and several course fixes started as emails from golfers.</p>
+    </div>
+    <div class="box">
+      <h3>Get in touch</h3>
+      <a class="mail" href="mailto:MulliganGolfPros@gmail.com?subject=Mulligan%20Pro">MulliganGolfPros@gmail.com</a>
+      <p>You can also tap Settings → Request a Feature inside the app.</p>
+      <p style="margin-bottom:6px"><strong style="color:var(--fg)">For a new course, include:</strong></p>
+      <ul class="quick">
+        <li>The course name and city</li>
+        <li>Anything that looks off (par, yardage, green location)</li>
+        <li>A photo of the scorecard if you have one</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="close"><div class="wrap">
+  <h2>Golf GPS shouldn't cost extra.</h2>
+  <p>Mulligan Pro is free, and it gets better with the courses and feedback golfers send in.</p>
+  <a class="btn primary" href="#">Download on the App Store</a>
+</div></div>
+
+<footer>Mulligan Pro · <a href="../announcements/history.html">Release history</a> · <a href="../index.html">All announcements</a></footer>
+
+<script>
+// only one video plays at a time
+document.addEventListener('play',function(e){
+  document.querySelectorAll('video').forEach(function(v){if(v!==e.target)v.pause()})
+},true)
+</script>
+</body></html>
