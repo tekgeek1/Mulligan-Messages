@@ -317,5 +317,14 @@ footer{padding:28px 0 40px;color:var(--muted);font-size:14px;text-align:center}
 document.addEventListener('play',function(e){
   document.querySelectorAll('video').forEach(function(v){if(v!==e.target)v.pause()})
 },true)
+// hero video: start on load; if the browser blocks it, retry on the first touch or scroll
+(function(){
+  var h=document.querySelector('.hero video, header video, video[autoplay]');if(!h)return;
+  h.muted=true;h.defaultMuted=true;h.setAttribute('muted','');h.setAttribute('playsinline','');
+  function go(){var p=h.play();if(p&&p.catch)p.catch(function(){})}
+  function retry(){if(h.paused)go();['touchstart','click','scroll','keydown'].forEach(function(t){window.removeEventListener(t,retry)})}
+  go();h.addEventListener('loadeddata',go);window.addEventListener('pageshow',go);
+  ['touchstart','click','scroll','keydown'].forEach(function(t){window.addEventListener(t,retry,{passive:true})});
+})();
 </script>
 </body></html>
